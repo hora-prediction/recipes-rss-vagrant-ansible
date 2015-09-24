@@ -1,6 +1,16 @@
 Netflix's RSS recipes with Vagrant and Ansible
 ==============================================
 
+System requirements:
+--------------------
+
+- A Linux host machine with at least 12GB RAM
+- with the following packages installed:
+   - vagrant
+   - vagrant hostmanager (by running ```vagrant plugin install vagrant-hostmanager```)
+   - virtualbox
+   - ansible (>=1.9.3)
+
 How to setup and run the application:
 -------------
 0. Clone this repository
@@ -46,38 +56,28 @@ Additional addresses can be used to debug the application:
    - edge: http://192.168.77.22:9090/jsp/rss.jsp
    - eureka: http://192.168.77.24/eureka
 
-System requirements:
---------------------
-
-- Linux host machine with at least 12GB RAM
-- with following packages installed:
-   - vagrant
-   - vagrant hostmanager (by running ```vagrant plugin install vagrant-hostmanager```)
-   - virtualbox
-   - ansible (>=1.9.3)
-
 Architecture of this setup:
 ---------------------------
 
- +-------------------------------------------------------------------------------+
- |         .21                 .22                 .23                 .25       |
- |    +------------+      +------------+      +------------+      +------------+ |
- | :80|loadbalancer| :9090|    edge    | :9191| middletier | :9160|  database  | |
- | -->| (machine1) |----->| (machine2) |----->| (machine3) |----->| (machine5) | |
- |    +------------+      +------------+      +------------+      +------------+ |
- |                                \               /    \                         |
- |                                 \             /      \                        |
- |                                  \:80        /:80     \:80                    |
- |                                   \  .24    /          \     .26              |
- |                                 +------------+         +------------+         |
- |                                 |   Eureka   |         | Feed server|         |
- |                                 | (machine4) |         | (machine6) |         |
- |                                 +------------+         +------------+         |
- |                                                                               |
- |                                                                               |
- |                    Virtual machines provisioned by Ansible                    |
- +-------------------------------------------------------------------------------+
- |                        Virtual Box (setup by Vagrant)                         |
- +-------------------------------------------------------------------------------+
- |                                     Host                                      |
- +-------------------------------------------------------------------------------+
+    +-------------------------------------------------------------------------------+
+    |         .21                 .22                 .23                 .25       |
+    |    +------------+      +------------+      +------------+      +------------+ |
+    | :80|loadbalancer| :9090|    edge    | :9191| middletier | :9160|  database  | |
+    | -->| (machine1) |----->| (machine2) |----->| (machine3) |----->| (machine5) | |
+    |    +------------+      +------------+      +------------+      +------------+ |
+    |                                \               /    \                         |
+    |                                 \             /      \                        |
+    |                                  \:80        /:80     \:80                    |
+    |                                   \  .24    /          \     .26              |
+    |                                 +------------+         +------------+         |
+    |                                 |   Eureka   |         | Feed server|         |
+    |                                 | (machine4) |         | (machine6) |         |
+    |                                 +------------+         +------------+         |
+    |                                                                               |
+    |                              Virtual machines                                 |
+    |                 (created by Vagrant and provisioned by Ansible)               |
+    +-------------------------------------------------------------------------------+
+    |                                 Virtual Box                                   |
+    +-------------------------------------------------------------------------------+
+    |                                     Host                                      |
+    +-------------------------------------------------------------------------------+
