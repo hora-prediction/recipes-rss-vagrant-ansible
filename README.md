@@ -41,7 +41,7 @@ ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_i
 
 Using and testing the application:
 ------------------------
-- With the default settings, the RSS reader service can be accessed at ```http://192.168.77.21/jsp/rss.jsp``` from the host machine.
+- With the default settings, the RSS reader service can be accessed at http://192.168.77.21/jsp/rss.jsp from the host machine.
 - RSS feeds can be added by entering the URL into the text box. Available URLs are:
    - http://192.168.77.26/feeds/abc.xml
    - http://192.168.77.26/feeds/bbc.xml
