@@ -1,7 +1,7 @@
 Netflix's RSS recipes with Vagrant and Ansible
 ==============================================
 
-System requirements:
+System requirements
 --------------------
 
 - A Linux host machine with at least 12GB RAM
@@ -11,7 +11,7 @@ System requirements:
    - virtualbox
    - ansible (>=1.9.3)
 
-How to setup and run the application:
+How to setup and run the application
 -------------
 0. Clone this repository
 0. Inside the cloned repository, run ```git submodule init``` and ```git submodule update``` to fetch ```rssrecipes-ansible```
@@ -24,7 +24,7 @@ ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_i
 0. Copy the log files by running
 ```
 ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant copy-log.yml
-```.
+```
 The log files will be copied to ```/tmp/Result``` of the host machine.
 0. The log files on the virtual machines can be cleaned by running
 ```
@@ -34,8 +34,9 @@ ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_i
 ```
 ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant -e hardware_platform='emulab' start.yml
 ```
+0. You can stop and remove all virtual machines by running ```vagrant destroy -f```.
 
-Using and testing the application:
+Using and testing the application
 ------------------------
 - With the default settings, the RSS reader service can be accessed at http://192.168.77.21/jsp/rss.jsp from the host machine.
 - RSS feeds can be added by entering the URL into the text box. Available URLs are:
@@ -52,7 +53,7 @@ Additional addresses can be used to debug the application:
    - edge: http://192.168.77.22:9090/jsp/rss.jsp
    - eureka: http://192.168.77.24/eureka
 
-Architecture of this setup:
+Architecture of this setup
 ---------------------------
 
     +-------------------------------------------------------------------------------+
