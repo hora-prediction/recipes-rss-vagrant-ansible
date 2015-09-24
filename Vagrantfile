@@ -75,6 +75,8 @@ Vagrant.configure(2) do |config|
 			# Disable default limit to connect to all the machines
 			ansible.limit = 'all'
 			ansible.playbook = "rssrecipes-ansible/run.yml"
+			# A workaround for hostname resolution
+			ansible.raw_arguments = [ "-e hardware_platform='emulab'" ]
 			########################################
 			# (2) Assign virtual machines to groups
 			########################################
