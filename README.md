@@ -15,11 +15,7 @@ How to setup and run the application:
 -------------
 0. Clone this repository
 0. Inside the cloned repository, run ```git submodule init``` and ```git submodule update``` to fetch ```rssrecipes-ansible```
-0. Run
-```
-vagrant up
-```.
-This step can take up to 20 minutes.
+0. Run ```vagrant up```. This step can take up to 20 minutes.
 0. Use the application (see below) to generate some activities and log files
 0. Stop the application by changing into ```rsscipes-ansible``` directory and running
 ```
