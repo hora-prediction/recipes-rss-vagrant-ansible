@@ -5,11 +5,12 @@ Vagrant.configure(2) do |config|
 	config.vm.box = "ubuntu/trusty64"
 	config.hostmanager.enabled = true
 	config.hostmanager.manage_host = false
+	config.ssh.insert_key = false
 
 	N = 6
 	(1..N).each do |machine_id|
 		config.vm.define "machine#{machine_id}" do |machine|
-			machine.vm.hostname = "machine#{machine_id}"
+			#machine.vm.hostname = "machine#{machine_id}"
 			machine.vm.network "private_network", ip: "192.168.77.#{20+machine_id}"
 			# Only execute once the Ansible provisioner,
 			# when all the machines are up and ready.
@@ -40,5 +41,7 @@ Vagrant.configure(2) do |config|
 			v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 		end
 	end
+	# TODO
+	# config.vm.post_up_message
 
 end
