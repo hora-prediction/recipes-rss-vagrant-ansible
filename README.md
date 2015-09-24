@@ -2,17 +2,19 @@ Netflix's RSS recipes with Vagrant and Ansible
 ==============================================
 
 System requirements
---------------------
+-------------------
 
-- A Linux host machine with at least 12GB RAM
-- with the following packages installed:
+- A Linux host machine with
+   - 8 GB of RAM (this setup consumes approx. 6 GB)
+   - 20 GB of disk space in home directory
+- with the following packages installed
    - vagrant
    - vagrant hostmanager (by running ```vagrant plugin install vagrant-hostmanager```)
    - virtualbox
    - ansible (>=1.9.3)
 
 How to setup and run the application
--------------
+------------------------------------
 0. Clone this repository
 0. Inside the cloned repository, run ```git submodule init``` and ```git submodule update``` to fetch ```rssrecipes-ansible```
 0. Run ```vagrant up```. This step can take up to 20 minutes.
@@ -37,7 +39,7 @@ ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_i
 0. You can stop and remove all virtual machines by running ```vagrant destroy -f```.
 
 Using and testing the application
-------------------------
+---------------------------------
 - With the default settings, the RSS reader service can be accessed at http://192.168.77.21/jsp/rss.jsp from the host machine.
 - RSS feeds can be added by entering the URL into the text box. Available URLs are:
    - http://192.168.77.26/feeds/abc.xml
@@ -54,7 +56,7 @@ Additional addresses can be used to debug the application:
    - eureka: http://192.168.77.24/eureka
 
 Architecture of this setup
----------------------------
+--------------------------
 
     +-------------------------------------------------------------------------------+
     |         .21                 .22                 .23                 .25       |
