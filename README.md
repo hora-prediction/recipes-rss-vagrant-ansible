@@ -44,7 +44,7 @@ This directory is shared between the host and all VMs.
 0. The log files on all nodes can be cleaned by executing
 ```ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant clean.yml```
 0. The application can be started again by executing
-```ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant -e hardware_platform='emulab' start.yml```
+```ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant start.yml```
 0. All VMs created in this setup can be removed completely by executing ```vagrant destroy -f``` on the host.
 
 ## Architecture of this setup

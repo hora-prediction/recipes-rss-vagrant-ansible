@@ -18,4 +18,4 @@ chown vagrant:vagrant /home/vagrant/.ssh/id_rsa
 # Execute ansible
 echo Executing ansible ...
 cd /vagrant/rssrecipes-ansible
-ansible-playbook -i ../vagrant_ansible_inventory -e hardware_platform='emulab' run.yml
+ansible-playbook -i ../vagrant_ansible_inventory run.yml
