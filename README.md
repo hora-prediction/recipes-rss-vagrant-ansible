@@ -38,7 +38,7 @@ All controls must be done inside the control node (machine0) where the ansible a
 ```ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant stop.yml```
 0. Copy the log files from all nodes to the control node by executing
 ```ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant copy-log.yml```.
-The log files will be copied to ```/tmp/Result``` of the control node.
+The log files will be copied to ```/tmp/RSSRecipesLog``` of the control node.
 These files can be copied back to the host machine by copying them to ```/vagrant```.
 This directory is shared between the host and all VMs.
 0. The log files on all nodes can be cleaned by executing
