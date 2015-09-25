@@ -67,22 +67,18 @@ This directory is shared between the host and all VMs.
     |      +------------+             +------------+         +------------+         |
     |                                                                               |
     |                              Virtual machines                                 |
-    |                     (created by Vagrant on host machine)                      |
+    |                            (created by Vagrant)                               |
     +-------------------------------------------------------------------------------+
     |                                 Virtual Box                                   |
     +-------------------------------------------------------------------------------+
     |                                     Host                                      |
     +-------------------------------------------------------------------------------+
 
-At startup, vagrant creates all VMs spcified in the ```Vagrantfile```.
-When all VMs are created, vagrant executes the ```bootstrap-ansible.sh``` script on the control node.
-This script installs ansible on the control node and executes the ansible ```run.yml``` playbook.
+At startup, vagrant creates all VMs spcified in the ```Vagrantfile```. When all VMs are created, vagrant executes the ```bootstrap-ansible.sh``` script on the control node. This script installs ansible on the control node and executes the ansible ```run.yml``` playbook.
 
 ## How to scale the application
 Scaling the application involves editing two configuration files:
-- ```Vagrantfile```
-   - specifies the VMs which will be created when executing ```vagrant up```.
-- ```vagrant_ansible_inventory```
-   - specifies the groups of VMs which will be provisioned by ansible.
+- ```Vagrantfile``` which specifies the VMs which will be created when executing ```vagrant up```.
+- ```vagrant_ansible_inventory``` which specifies the groups of VMs which will be provisioned by ansible.
 
 Note: please make sure that the host machine has enough resources to run all VMs.
