@@ -32,9 +32,7 @@ This setup provides an easy way to run Netflix's distributed RSS recipes (https:
 0. The feeds can be removed by clicking the delete icon.
 
 ### Stopping the application and exporting application log
-All controls must be done inside the control node (machine0) where the ansible and the playbooks are located.
-The following steps assume that you have already ssh'ed into the control node by executing ```vagrant ssh machine0``` and have changed the current working directory to ```/vagrant/rssrecipes-ansible``` inside the control node.
-For a Windows host, please refer to http://docs-v1.vagrantup.com/v1/docs/getting-started/ssh.html regarding how to ssh into the control node.
+All controls must be done inside the control node (machine0) where the ansible and the playbooks are located. The following steps assume that you have already ssh'ed into the control node by executing ```vagrant ssh machine0``` and have changed the current working directory to ```/vagrant/rssrecipes-ansible``` inside the control node. For a Windows host, please refer to http://docs-v1.vagrantup.com/v1/docs/getting-started/ssh.html regarding how to ssh into the control node.
 
 0. Stop the application by executing
 ```ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant stop.yml```
@@ -66,10 +64,10 @@ This directory is shared between the host and all VMs.
     |      | (machine0) |             | (machine4) |         | (machine6) |         |
     |      +------------+             +------------+         +------------+         |
     |                                                                               |
-    |                              Virtual machines                                 |
-    |                            (created by Vagrant)                               |
+    |                               Virtual machines                                |
+    |                             (created by Vagrant)                              |
     +-------------------------------------------------------------------------------+
-    |                                 Virtual Box                                   |
+    |                                  VirtualBox                                   |
     +-------------------------------------------------------------------------------+
     |                                     Host                                      |
     +-------------------------------------------------------------------------------+
@@ -78,7 +76,9 @@ At startup, vagrant creates all VMs spcified in the ```Vagrantfile```. When all 
 
 ## How to scale the application
 Scaling the application involves editing two configuration files:
-- ```Vagrantfile``` which specifies the VMs which will be created when executing ```vagrant up```.
-- ```vagrant_ansible_inventory``` which specifies the groups of VMs which will be provisioned by ansible.
+- ```Vagrantfile``` which specifies the VMs that will be created when executing ```vagrant up```.
+- ```vagrant_ansible_inventory``` which specifies the groups of VMs that will be provisioned by ansible.
+
+The setup currently supports only scaling of edge and middletier.
 
 Note: please make sure that the host machine has enough resources to run all VMs.
