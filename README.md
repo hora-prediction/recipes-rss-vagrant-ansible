@@ -7,7 +7,7 @@ This setup provides an easy way to run Netflix's distributed RSS recipes (https:
    - 20 GB of disk space in home directory
 - with the following packages installed
    - VirtualBox
-   - vagrant
+   - vagrant (>=1.7.4)
    - vagrant hostmanager (by running ```vagrant plugin install vagrant-hostmanager```)
 
 ## Instruction
