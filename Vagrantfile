@@ -70,6 +70,16 @@ Vagrant.configure(2) do |config|
 			v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
 		end
 	end
+	config.vm.define "machine7" do |machine|
+		machine.vm.network "private_network", ip: "192.168.77.27"
+		machine.vm.provider "virtualbox" do |v|
+			v.customize ["modifyvm", :id, "--memory", 512]
+			v.customize ["modifyvm", :id, "--cpus", 1]
+			v.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
+			v.customize ["modifyvm", :id, "--nictype1", "virtio"]
+			v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+		end
+	end
 
 	########################################
 	# Configure control node
