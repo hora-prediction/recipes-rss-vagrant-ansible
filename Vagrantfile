@@ -13,7 +13,7 @@ Vagrant.configure(2) do |config|
 	config.vm.define "machine1" do |machine|
 		machine.vm.network "private_network", ip: "192.168.77.21"
 		machine.vm.provider "virtualbox" do |v|
-			v.customize ["modifyvm", :id, "--memory", 512]
+			v.customize ["modifyvm", :id, "--memory", 256]
 			v.customize ["modifyvm", :id, "--cpus", 1]
 			v.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
 			v.customize ["modifyvm", :id, "--nictype1", "virtio"]
@@ -87,7 +87,7 @@ Vagrant.configure(2) do |config|
 	config.vm.define "machine0" do |machine|
 		machine.vm.network "private_network", ip: "192.168.77.20"
 		machine.vm.provider "virtualbox" do |v|
-			v.customize ["modifyvm", :id, "--memory", 512]
+			v.customize ["modifyvm", :id, "--memory", 256]
 			v.customize ["modifyvm", :id, "--cpus", 1]
 			v.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
 			v.customize ["modifyvm", :id, "--nictype1", "virtio"]
