@@ -29,7 +29,7 @@ This setup provides an easy way to run Netflix's distributed RSS reader applicat
 At startup, vagrant creates all VMs spcified in the ```Vagrantfile```. When all VMs are created, vagrant executes the ```bootstrap-ansible.sh``` script on the control node. This script installs ansible on the control node and executes the ansible playbook ```run.yml``` which sets up and starts the application.
 
 ## System requirements
-- A Windows, Mac, or Linux host machine with
+- A Linux host machine with
    - 8 GB of RAM (this setup consumes approx. 6 GB)
    - 20 GB of disk space in home directory
 - with the following packages installed
