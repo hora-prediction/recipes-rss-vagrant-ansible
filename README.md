@@ -57,7 +57,7 @@ At startup, vagrant creates all VMs spcified in the ```Vagrantfile```. When all 
 0. The feeds can be removed by clicking the delete icon.
 
 ### Stopping the application and exporting application log
-All controls must be done inside the control node (machine0) where the ansible and the playbooks are located. The following steps assume that you have already ssh'ed into the control node by executing ```vagrant ssh machine0``` and have changed the current working directory to ```/tmp/recipes-rss-ansible``` inside the control node. For a Windows host, please refer to http://docs-v1.vagrantup.com/v1/docs/getting-started/ssh.html regarding how to ssh into the control node.
+All controls must be done inside the control node (machine0) where the ansible and the playbooks are located. The following steps assume that you have already ssh'ed into the control node by executing ```vagrant ssh machine0``` and have changed the current working directory to ```/tmp/recipes-rss-ansible``` inside the control node.
 
 0. Stop the application by executing
 ```ansible-playbook -i /vagrant/vagrant_ansible_inventory -u vagrant stop.yml```
