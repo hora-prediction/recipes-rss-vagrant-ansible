@@ -1,3 +1,0 @@
-[submodule "rssrecipes-ansible"]
-	path = rssrecipes-ansible
-	url = git@hobart.informatik.uni-stuttgart.de:tp/rssrecipes-ansible.git

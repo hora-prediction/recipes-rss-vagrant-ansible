@@ -1,62 +1,7 @@
-Netflix's RSS recipes with Vagrant and Ansible
-==============================================
+# Netflix's RSS recipes with Vagrant and Ansible
+This setup provides an easy way to run Netflix's distributed RSS reader application (https://github.com/hora-prediction/recipes-rss.git) on one physical machine using Vagrant and Ansible.
 
-System requirements
--------------------
-
-- A Linux host machine with
-   - 8 GB of RAM (this setup consumes approx. 6 GB)
-   - 20 GB of disk space in home directory
-- with the following packages installed
-   - vagrant
-   - vagrant hostmanager (by running ```vagrant plugin install vagrant-hostmanager```)
-   - virtualbox
-   - ansible (>=1.9.3)
-
-How to setup and run the application
-------------------------------------
-0. Clone this repository
-0. Inside the cloned repository, run ```git submodule init``` and ```git submodule update``` to fetch ```rssrecipes-ansible```
-0. Run ```vagrant up```. This step can take up to 20 minutes.
-0. Use the application (see below) to generate some activities and log files
-0. Stop the application by changing into ```rsscipes-ansible``` directory and running
-```
-ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant stop.yml
-```
-0. Copy the log files by running
-```
-ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant copy-log.yml
-```
-The log files will be copied to ```/tmp/Result``` of the host machine.
-0. The log files on the virtual machines can be cleaned by running
-```
-ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant clean.yml
-```
-0. You may start the application again by running
-```
-ansible-playbook -i ../.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -u vagrant -e hardware_platform='emulab' start.yml
-```
-0. You can stop and remove all virtual machines by running ```vagrant destroy -f```.
-
-Using and testing the application
----------------------------------
-- With the default settings, the RSS reader service can be accessed at http://192.168.77.21/jsp/rss.jsp from the host machine.
-- RSS feeds can be added by entering the URL into the text box. Available URLs are:
-   - http://192.168.77.26/feeds/abc.xml
-   - http://192.168.77.26/feeds/bbc.xml
-   - http://192.168.77.26/feeds/cnn.xml
-   - http://192.168.77.26/feeds/dw.xml
-   - http://192.168.77.26/feeds/forbes.xml
-   - http://192.168.77.26/feeds/reuters.xml
-   - http://192.168.77.26/feeds/spiegel.xml
-   - http://192.168.77.26/feeds/wsj.xml
-
-Additional addresses can be used to debug the application:
-   - edge: http://192.168.77.22:9090/jsp/rss.jsp
-   - eureka: http://192.168.77.24/eureka
-
-Architecture of this setup
---------------------------
+## Architecture of this setup
 
     +-------------------------------------------------------------------------------+
     |         .21                 .22                 .23                 .25       |
@@ -67,16 +12,69 @@ Architecture of this setup
     |                                \               /    \                         |
     |                                 \             /      \                        |
     |                                  \:80        /:80     \:80                    |
-    |                                   \  .24    /          \     .26              |
-    |                                 +------------+         +------------+         |
-    |                                 |   Eureka   |         | Feed server|         |
-    |                                 | (machine4) |         | (machine6) |         |
-    |                                 +------------+         +------------+         |
+    |           .20                     \   .24   /          \     .26              |
+    |      +------------+             +------------+         +------------+         |
+    |      |Control node|             |   Eureka   |         | Feed server|         |
+    |      | (machine0) |             | (machine4) |         | (machine6) |         |
+    |      +------------+             +------------+         +------------+         |
     |                                                                               |
-    |                              Virtual machines                                 |
-    |                 (created by Vagrant and provisioned by Ansible)               |
+    |                               Virtual machines                                |
+    |                             (created by Vagrant)                              |
     +-------------------------------------------------------------------------------+
-    |                                 Virtual Box                                   |
+    |                                  VirtualBox                                   |
     +-------------------------------------------------------------------------------+
     |                                     Host                                      |
     +-------------------------------------------------------------------------------+
+
+At startup, vagrant creates all VMs spcified in the ```Vagrantfile```. When all VMs are created, vagrant executes the ```bootstrap-ansible.sh``` script on the control node. This script installs ansible on the control node and executes the ansible playbook ```run.yml``` which sets up and starts the application.
+
+## System requirements
+- A Windows, Mac, or Linux host machine with
+   - 8 GB of RAM (this setup consumes approx. 6 GB)
+   - 20 GB of disk space in home directory
+- with the following packages installed
+   - VirtualBox
+   - Vagrant (>=1.7.4)
+   - Vagrant hostmanager plugin (by executing ```vagrant plugin install vagrant-hostmanager``` after Vagrant is installed)
+
+## Instruction
+
+### How to setup and run the application
+0. Clone this repository
+0. Inside the cloned repository, execute ```vagrant up```. This step can take up to 30 minutes.
+
+### Using the application
+0. The RSS reader application can be accessed at http://192.168.77.21/jsp/rss.jsp from the host machine.
+0. Add RSS feeds from the following URLs:
+   - http://192.168.77.26/feeds/abc.xml
+   - http://192.168.77.26/feeds/bbc.xml
+   - http://192.168.77.26/feeds/cnn.xml
+   - http://192.168.77.26/feeds/dw.xml
+   - http://192.168.77.26/feeds/forbes.xml
+   - http://192.168.77.26/feeds/reuters.xml
+   - http://192.168.77.26/feeds/spiegel.xml
+   - http://192.168.77.26/feeds/wsj.xml
+0. The feeds can be removed by clicking the delete icon.
+
+### Stopping the application and exporting application log
+All controls must be done inside the control node (machine0) where the ansible and the playbooks are located. The following steps assume that you have already ssh'ed into the control node by executing ```vagrant ssh machine0``` and have changed the current working directory to ```/tmp/recipes-rss-ansible``` inside the control node. For a Windows host, please refer to http://docs-v1.vagrantup.com/v1/docs/getting-started/ssh.html regarding how to ssh into the control node.
+
+0. Stop the application by executing
+```ansible-playbook -i /vagrant/vagrant_ansible_inventory -u vagrant stop.yml```
+0. Copy the log files from all nodes to the control node by executing
+```ansible-playbook -i /vagrant/vagrant_ansible_inventory -u vagrant copy-log.yml```.
+The log files will be copied to ```/tmp/RSSRecipesLog``` of the control node.
+These files can be copied back to the host machine by copying them to ```/vagrant```.
+This directory is shared between the host and all VMs.
+0. The log files on all nodes can be cleaned by executing
+```ansible-playbook -i /vagrant/vagrant_ansible_inventory -u vagrant clean.yml```
+0. The application can be started again by executing
+```ansible-playbook -i /vagrant/vagrant_ansible_inventory -u vagrant start.yml```
+0. All VMs created in this setup can be removed completely by executing ```vagrant destroy -f``` on the host.
+
+## How to scale the application
+The application allows horizontal scaling of the edge and middletier. Scaling the application involves editing two configuration files:
+- ```Vagrantfile``` which specifies the VMs that will be created when executing ```vagrant up```.
+- ```vagrant_ansible_inventory``` which specifies the groups of VMs that will be provisioned by ansible.
+
+Note: please make sure that the host machine has enough resources to run all VMs.
