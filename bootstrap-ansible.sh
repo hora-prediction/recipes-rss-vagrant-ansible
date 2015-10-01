@@ -19,6 +19,10 @@ chown vagrant:vagrant /home/vagrant/.ssh/id_rsa
 cd /tmp
 git clone https://github.com/hora-prediction/recipes-rss-ansible.git
 
+# Configure ansible variables for vagrant environment
+cd /tmp/recipes-rss-ansible/group_vars
+sed -i 's/use_short_hostname: false/use_short_hostname: true/' all
+
 # Execute ansible
 echo Executing ansible ...
 cd /tmp/recipes-rss-ansible
